@@ -6,7 +6,7 @@ import ChatInput from "./ChatInput";
 import { getGeminiResponse } from "../../lib/gemini";
 import { ActionHandler } from "../CoBrowsing/ActionHandler";
 import DOMExtractor from "../CoBrowsing/DOMExtractor";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function ChatInterface({ onClose }) {
   const [messages, setMessages] = useState([

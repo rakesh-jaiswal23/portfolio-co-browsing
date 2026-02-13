@@ -1,7 +1,9 @@
+// lib/tools.js - UPDATED
+
 export const tools = [
   {
     name: "scroll",
-    description: "Scroll the page up, down, or to a specific section",
+    description: "Scroll the page up or down",
     parameters: {
       type: "object",
       properties: {
@@ -12,18 +14,18 @@ export const tools = [
   },
   {
     name: "highlight",
-    description: "Highlight an element on the page",
+    description: "Highlight elements containing specific text",
     parameters: {
       type: "object",
       properties: {
-        selector: { type: "string" },
         text: { type: "string" }
-      }
+      },
+      required: ["text"]
     }
   },
   {
     name: "click",
-    description: "Click on a button or link",
+    description: "Click on an element",
     parameters: {
       type: "object",
       properties: {
@@ -45,19 +47,29 @@ export const tools = [
   },
   {
     name: "fillForm",
-    description: "Fill contact form fields",
+    description: "Fill a specific field in a form",
     parameters: {
       type: "object",
       properties: {
-        formSelector: { type: "string" },
-        fields: { 
-          type: "object",
-          properties: {
-            name: { type: "string" },
-            email: { type: "string" },
-            message: { type: "string" }
-          }
+        field: { 
+          type: "string", 
+          description: "Field name (name, email, message, etc.)" 
+        },
+        value: { 
+          type: "string", 
+          description: "Value to fill in the field" 
         }
+      },
+      required: ["field", "value"]
+    }
+  },
+  {
+    name: "focus",
+    description: "Focus on a specific section",
+    parameters: {
+      type: "object",
+      properties: {
+        section: { type: "string" }
       }
     }
   }

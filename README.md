@@ -1,36 +1,165 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Co-Browsing Chatbot (Next.js + Gemini)
 
-## Getting Started
+An AI-powered co-browsing assistant for a portfolio website.
+It can understand the current page content dynamically and perform actions like:
 
-First, run the development server:
+- Scroll up/down
+- Navigate to sections (Projects, Skills, Contact)
+- Highlight elements
+- Click buttons/links
+- Fill forms
+
+This project uses **Next.js (React)** + **Gemini API** and a simple tool-command system:
+`[TOOL:name{...}]`
+
+---
+
+## Setup Instructions
+
+### 1) Clone & Install
+
+```bash
+git clone https://github.com/rakesh-jaiswal23/portfolio-co-browsing.git
+npm install
+```
+
+### 2) Create `.env`
+
+Create a file named `.env` in the root directory:
+
+```env
+# Gemini API Key (Get key from Google AI Studio)
+NEXT_PUBLIC_GEMINI_API_KEY=YOUR_GEMINI_API_KEY_HERE
+```
+
+> ⚠️ Never commit `.env` to GitHub.
+
+### 3) Run the Project
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
+[http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔑 Gemini API Configuration
 
-## Learn More
+This project uses the official Gemini SDK:
 
-To learn more about Next.js, take a look at the following resources:
+```js
+import { GoogleGenerativeAI } from "@google/generative-ai";
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Gemini is called from:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `lib/gemini.js`
 
-## Deploy on Vercel
+The model used:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `gemini-2.5-flash`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The assistant is prompted to return actions in this format:
+
+```txt
+[TOOL:scroll{"direction":"down"}] Scrolling down!
+```
+
+---
+
+## 🏗️ Architecture Overview
+
+### 1) ChatInterface (UI + Controller)
+
+**File:** `components/ChatBot/ChatInterface.jsx`
+
+Responsibilities:
+
+- Shows chat UI
+- Stores messages + loading state
+- Sends user message to Gemini
+- Parses tool commands from Gemini response
+- Executes actions via `ActionHandler`
+
+---
+
+### 2) DOMExtractor (Website Context Builder)
+
+**File:** `components/CoBrowsing/DOMExtractor.js`
+
+Responsibilities:
+
+- Scans current website DOM
+- Extracts:
+  - Sections
+  - Projects
+  - Skills
+  - Forms
+
+- Builds a structured JSON context
+- Sends this context to Gemini so the AI understands the page dynamically
+
+---
+
+### 3) ActionHandler (Tool Executor)
+
+**File:** `components/CoBrowsing/ActionHandler.js`
+
+Responsibilities:
+
+- Executes tool calls returned by Gemini:
+  - `scroll`
+  - `navigate`
+  - `highlight`
+  - `click`
+  - `fillForm`
+
+Example:
+
+```js
+ActionHandler.handleToolCall("scroll", { direction: "down" });
+```
+
+---
+
+### 4) Tool Parsing System
+
+Gemini returns commands in the response:
+
+```txt
+[TOOL:navigate{"section":"projects"}] Taking you to projects!
+```
+
+The chat interface extracts tool calls using regex, converts JSON params to objects,
+and executes them in the browser.
+
+---
+
+##  Notes / Security
+
+- `.env` is ignored using `.gitignore`
+- Never expose API keys in public repos
+- If a key is leaked, revoke it immediately in Google AI Studio
+
+---
+
+##  Example Commands
+
+User can type:
+
+- `scroll down`
+- `scroll up`
+- `go to projects`
+- `go to skills`
+- `go to contact`
+- `highlight LocalMart`
+- `click Contact`
+- `fill form`
+
+---
+
+##  License
+
+MIT

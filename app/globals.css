@@ -9,7 +9,7 @@
   * {
     @apply scroll-smooth;
   }
-  
+
   body {
     @apply bg-gradient-to-br from-purple-50 via-white to-indigo-50;
     font-family: Arial, Helvetica, sans-serif;
@@ -119,18 +119,19 @@
   .animate-fade-in {
     animation: fadeIn 0.3s ease;
   }
-  
+
   .animation-delay-2000 {
     animation-delay: 2s;
   }
-  
+
   .animation-delay-4000 {
     animation-delay: 4s;
   }
 }
 
 @keyframes highlightPulse {
-  0%, 100% {
+  0%,
+  100% {
     outline-color: #f87171;
     box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.4);
   }
@@ -152,7 +153,8 @@
 }
 
 @keyframes typing {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -177,4 +179,28 @@
 
 .animate-blob {
   animation: blob 7s infinite;
+}
+.ai-highlight {
+  animation: greenPulse 2s ease;
+  outline: 3px solid #10b981 !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  transition: all 0.3s;
+  position: relative;
+  z-index: 9999;
+}
+
+@keyframes greenPulse {
+  0% {
+    outline-color: #10b981;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  50% {
+    outline-color: #34d399;
+    box-shadow: 0 0 20px 10px rgba(16, 185, 129, 0.3);
+  }
+  100% {
+    outline-color: #10b981;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
 }

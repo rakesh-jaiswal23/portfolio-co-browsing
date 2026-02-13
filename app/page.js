@@ -79,14 +79,14 @@ export default function Home() {
                   )}
                 </motion.a>
               ))}
-              
+
               {/* Resume Button */}
               <motion.a
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                href="/resume.pdf"
-                target="_blank"
+                href="/my_resume.pdf"
+                download="RakeshJaiswal_Resume.pdf"
                 className="ml-4 px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-medium rounded-full hover:shadow-lg hover:shadow-emerald-500/25 transition-all flex items-center gap-2"
               >
                 <span>📄</span>
@@ -96,8 +96,18 @@ export default function Home() {
 
             {/* Mobile Menu Button */}
             <button className="md:hidden text-slate-300 hover:text-emerald-400 transition-colors">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
           </div>
@@ -111,18 +121,19 @@ export default function Home() {
 
       {/* Chat Interface */}
       <AnimatePresence>
-        {isChatOpen && (
-          <ChatInterface onClose={() => setIsChatOpen(false)} />
-        )}
+        {isChatOpen && <ChatInterface onClose={() => setIsChatOpen(false)} />}
       </AnimatePresence>
 
-      {/* Chat Toggle - Green Theme */}
+      {/* Chat Toggle  */}
       {!isChatOpen && (
         <motion.button
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0, opacity: 0 }}
-          whileHover={{ scale: 1.1, boxShadow: "0 0 20px rgba(16, 185, 129, 0.5)" }}
+          whileHover={{
+            scale: 1.1,
+            boxShadow: "0 0 20px rgba(16, 185, 129, 0.5)",
+          }}
           whileTap={{ scale: 0.9 }}
           className="fixed bottom-5 right-5 w-14 h-14 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all z-50 border border-emerald-400/20"
           onClick={() => setIsChatOpen(true)}

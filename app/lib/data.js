@@ -52,6 +52,11 @@ export const skills = [
   "Figma",
   "Docker",
   "AWS/Cloud",
+  "Express.js",
+  "MongoDB",
+  "Node.js",
+  "FaceDetection (TensorFlow)",
+  "AgentBuilder (OpenAI)",
 ];
 
 // Contact Info

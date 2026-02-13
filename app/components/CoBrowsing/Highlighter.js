@@ -1,52 +1,42 @@
-'use client';
+"use client";
 
 class Highlighter {
   static highlight(element) {
     if (!element) return;
-    
-    // Remove existing highlights
+
     this.removeHighlights();
-    
-    // Add highlight class
-    element.classList.add('ai-highlight');
-    
-    // Auto remove after 3 seconds
+
+    element.classList.add("ai-highlight");
+
+    // Element ko view mein lao
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center",
+    });
+
     setTimeout(() => {
-      element.classList.remove('ai-highlight');
-    }, 3000);
+      element.classList.remove("ai-highlight");
+    }, 4000); // 4 seconds tak highlighted rahega
   }
 
   static flash(element) {
     if (!element) return;
-    
-    element.classList.add('ai-highlight');
+
+    element.classList.add("ai-highlight");
     setTimeout(() => {
-      element.classList.remove('ai-highlight');
-    }, 1000);
+      element.classList.remove("ai-highlight");
+    }, 1500);
   }
 
   static removeHighlights() {
-    document.querySelectorAll('.ai-highlight').forEach(el => {
-      el.classList.remove('ai-highlight');
+    document.querySelectorAll(".ai-highlight").forEach((el) => {
+      el.classList.remove("ai-highlight");
     });
   }
 
   static highlightMultiple(elements) {
-    elements.forEach(el => this.highlight(el));
-  }
-
-  static highlightByText(text) {
-    const elements = document.querySelectorAll('h1, h2, h3, h4, p, button, a, .project-card');
-    const matched = [];
-    
-    elements.forEach(el => {
-      if (el.innerText?.toLowerCase().includes(text.toLowerCase())) {
-        this.highlight(el);
-        matched.push(el);
-      }
-    });
-    
-    return matched;
+    elements.forEach((el) => this.highlight(el));
   }
 }
 

@@ -353,7 +353,7 @@ export default function PortfolioContent() {
               </span>
             </div>
             <div className="text-slate-400 text-sm">
-              © 2024 Rakesh Jaiswal. Built with Next.js & Gemini AI
+              © 2026 Rakesh Jaiswal. Built with Next.js & Gemini AI
             </div>
           </div>
         </div>

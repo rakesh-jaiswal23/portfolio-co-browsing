@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
 if (!API_KEY) {
-  console.error("❌ Gemini API key not found in .env.local");
+  console.error(" Gemini API key not found in .env.local");
 }
 
 const genAI = new GoogleGenerativeAI(API_KEY || "");
@@ -77,15 +77,18 @@ RESPONSE:`;
     const result = await model.generateContent(prompt);
     const response = await result.response;
     return response.text();
-    
   } catch (error) {
     console.error("Gemini API Error:", error);
 
-    // 🎯 FALLBACK: Intelligent fallback responses
+    //  FALLBACK: Intelligent fallback responses
     const msg = userMessage.toLowerCase();
 
     // Highlight fallback
-    if (msg.includes("highlight") || msg.includes("dikhao") || msg.includes("show")) {
+    if (
+      msg.includes("highlight") ||
+      msg.includes("dikhao") ||
+      msg.includes("show")
+    ) {
       // Extract what to highlight
       let textToHighlight = msg
         .replace("highlight", "")
@@ -96,7 +99,7 @@ RESPONSE:`;
         .replace("mere skills mein", "")
         .replace("skills mein", "")
         .trim();
-      
+
       if (textToHighlight) {
         return `[TOOL:highlight{"text":"${textToHighlight}"}] Here, I've highlighted "${textToHighlight}" for you!`;
       }
@@ -114,7 +117,12 @@ RESPONSE:`;
         }
       }
       if (msg.includes("message")) {
-        const messageText = msg.split("message")[1]?.replace("mein", "").replace("likh", "").trim() || "Hello";
+        const messageText =
+          msg
+            .split("message")[1]
+            ?.replace("mein", "")
+            .replace("likh", "")
+            .trim() || "Hello";
         return `[TOOL:fillForm{"field":"message","value":"${messageText}"}] Message added!`;
       }
     }
